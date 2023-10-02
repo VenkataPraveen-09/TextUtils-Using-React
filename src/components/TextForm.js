@@ -7,12 +7,14 @@ export default function TextForm(props) {
     console.log("clicked");
     let newText=text.toUpperCase();
     setText(newText)
+    props.showAlert(" Converted to upper case!","Success")
   }
 
   const handleLoClick =()=>{
     console.log("clicked");
     let newText=text.toLowerCase();
     setText(newText)
+    props.showAlert(" Converted to lower case!","Success")
   }
 
   const handleTrimClick =()=>{
@@ -25,12 +27,14 @@ export default function TextForm(props) {
     let msg = new SpeechSynthesisUtterance();
     msg.text = text;
     window.speechSynthesis.speak(msg);
+    props.showAlert(" Speaking ...!","Success")
   }
 
   const handleclClick =()=>{
     console.log("clicked");
     let newText='';
     setText(newText)
+    props.showAlert(" Text Cleared !","Success")
   }
 
   const handelOnChange =(event)=>{
@@ -40,11 +44,11 @@ export default function TextForm(props) {
   const[text,setText]=useState('');
   return (
     <>
-    <div className='container'>
+    <div className='container' style={{color:props.mode==='dark'?'white':'black'}}>
       <h1>{props.heading}</h1>
       <div className="mb-3">
         <label htmlFor="MyBox" className="form-label"></label>
-        <textarea className="form-control" id="myBox" onChange={handelOnChange} value ={text} rows="8"></textarea>
+        <textarea className="form-control" id="myBox" onChange={handelOnChange} style={{backgroundColor:props.mode==='dark'?'grey':'white',color:props.mode==='dark'?'white':'black'}} value ={text} rows="8"></textarea>
       </div>
       <button className='btn btn-primary' onClick={handleUpClick}>Convert To Upper</button>
       <button className='btn btn-primary mx-1' onClick={handleLoClick}>Convert To Lower</button>
@@ -52,12 +56,12 @@ export default function TextForm(props) {
       <button className='btn btn-primary mx-1' onClick={speak}>Speak Text</button>
       <button className='btn btn-primary mx-1' onClick={handleclClick}>Clear Text</button>
     </div>
-    <div className="container my-3">
+    <div className="container my-3"  style={{color:props.mode==='dark'?'white':'black'}}>
       <h2>Text Summary</h2>
       <p>{text.split(" ").length} words and {text.length} alphabets</p>
       <p><b>{0.008*text.split(" ").length}</b> Minutes read</p>
       <h2>Preview</h2>
-      <p>{text}</p>
+      <p>{text.length>0?text:"Enter Some Text To Preview"}</p>
     </div>
     </>
   );
