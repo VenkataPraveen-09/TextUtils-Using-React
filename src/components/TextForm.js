@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 export default function TextForm(props) {
-
+  
   const handleUpClick =()=>{
     console.log("clicked");
     let newText=text.toUpperCase();
@@ -48,18 +48,18 @@ export default function TextForm(props) {
       <h1>{props.heading}</h1>
       <div className="mb-3">
         <label htmlFor="MyBox" className="form-label"></label>
-        <textarea className="form-control" id="myBox" onChange={handelOnChange} style={{backgroundColor:props.mode==='dark'?'grey':'white',color:props.mode==='dark'?'white':'black'}} value ={text} rows="8"></textarea>
+        <textarea className="form-control" id="myBox" onChange={handelOnChange} style={{backgroundColor:props.mode==='dark'?'rgb(36 74 104)':'white',color:props.mode==='dark'?'white':'black'}} value ={text} rows="8"></textarea>
       </div>
-      <button className='btn btn-primary' onClick={handleUpClick}>Convert To Upper</button>
-      <button className='btn btn-primary mx-1' onClick={handleLoClick}>Convert To Lower</button>
-      <button className='btn btn-primary mx-1' onClick={handleTrimClick}>Trim Text</button>
-      <button className='btn btn-primary mx-1' onClick={speak}>Speak Text</button>
-      <button className='btn btn-primary mx-1' onClick={handleclClick}>Clear Text</button>
+      <button disabled={text.length===0} className='btn btn-primary' onClick={handleUpClick}>Convert To Upper</button>
+      <button disabled={text.length===0} className='btn btn-primary mx-1 my-1' onClick={handleLoClick}>Convert To Lower</button>
+      <button disabled={text.length===0} className='btn btn-primary mx-1 my-1' onClick={handleTrimClick}>Trim Text</button>
+      <button disabled={text.length===0} className='btn btn-primary mx-1 my-1' onClick={speak}>Speak Text</button>
+      <button className='btn btn-primary mx-1 my-1' onClick={handleclClick}>Clear Text</button>
     </div>
     <div className="container my-3"  style={{color:props.mode==='dark'?'white':'black'}}>
       <h2>Text Summary</h2>
-      <p>{text.split(" ").length} words and {text.length} alphabets</p>
-      <p><b>{0.008*text.split(" ").length}</b> Minutes read</p>
+      <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words and {text.length} alphabets</p>
+      <p><b>{0.008*text.split(" ").filter((element)=>{return element.length!==0}).length}</b> Minutes read</p>
       <h2>Preview</h2>
       <p>{text.length>0?text:"Enter Some Text To Preview"}</p>
     </div>
